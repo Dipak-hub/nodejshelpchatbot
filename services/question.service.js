@@ -39,6 +39,17 @@ async function addQuestion(params, callback) {
     }
   }
 }
+
+async function getQuestions(callback) {
+  const questionData = await Question.find();
+  // console.log("Q", questionData);
+  if (questionData == null) {
+    return callback(null, { message: "No questions found" });
+  } else {
+    return callback(null, { questionData });
+  }
+}
+
 async function getAnswer({ id }, callback) {
   const subAnswerData = await SubQuestion.findOne({ _id: id });
   if (subAnswerData == null) {
@@ -54,4 +65,4 @@ async function getAnswer({ id }, callback) {
     return callback(null, { ...subAnswerData.toJSON() });
   }
 }
-module.exports = { addQuestion, getAnswer };
+module.exports = { addQuestion, getQuestions, getAnswer };

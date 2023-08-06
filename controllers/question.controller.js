@@ -11,6 +11,18 @@ exports.addQuestion = async (req, res, next) => {
     });
   });
 };
+exports.getQuestions = async (req, res, next) => {
+  questionService.getQuestions((error, result) => {
+    if (error) {
+      return next(error);
+    } else {
+      return res.status(200).send({
+        message: "Success",
+        data: result,
+      });
+    }
+  });
+};
 exports.getAnswer = async (req, res, next) => {
   const id = req.params.id;
   questionService.getAnswer({ id }, (error, result) => {
